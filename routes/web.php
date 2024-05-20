@@ -18,7 +18,6 @@ $jobs = [['id' => 1, 'title' => 'Director', 'salary' => '$50,000'], ['id' => 2, 
 
 // Use short closure to access $id from above
    $job = Arr::first($jobs, fn($job)=> $job['id'] == $id);
-   dd($job);
     return view('job', ['job' => $job]);
 });
 
