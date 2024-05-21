@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Job;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,7 +18,8 @@ Route::get('/jobs/{id}', function ($id) {
 
 // Use short closure to access $id from above
 // closures use a similar style to JavaScript's arrow function but need "fn" at the start
-   $job = Arr::first(Job::all(), fn($job)=> $job['id'] == $id);
+   $job = Job::find($id);
+
     return view('job', ['job' => $job]);
 });
 
