@@ -18,6 +18,8 @@ class Job extends Model {
  }
 
  public function tags(){
-   return $this->belongsToMany();
+   // Make sure we don't end up using Laravel's default job_id intended fro the jobs table
+   // we want job_listings
+   return $this->belongsToMany(Tag::class, foreignPivotKey:"job_listing_id");
  }
 }
