@@ -14,6 +14,7 @@ Route::get('/jobs', function ()  {
     // had we used lazy loading then we'd have the N+1 problem
     // so the more records we added the more SQL queries would need to be run
     // making performance get progressively worse
+    // previously we used Job::all()
     $jobs = Job::with('employer')->get();
 
     return view('jobs', ['jobs' => $jobs]);
