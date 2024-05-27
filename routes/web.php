@@ -9,7 +9,14 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function ()  {
-    return view('jobs', ['jobs' => Job::all()]);
+    // Use eager loading rather than lazy loading for better performance
+    // use "with" with employer() method in Job class
+    // had we used lazy loading then we'd have the N+1 problem
+    // so the more records we added the more SQL queries would need to be run
+    // making performance get progressively worse
+    $jobs = Job::with('employer')->get();
+
+    return view('jobs', ['jobs' => $jobs]);
 });
 
 Route::get('/jobs/{id}', function ($id) {
