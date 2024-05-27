@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->timestamps();
+        });
+
+        Schema::create('job_tag', function (Blueprint $table) {
+            $table->id();
+            // Define as job_listing_id so not confused with default Laravel jobs table
+            $table->foreignIdFor(\App\Models\Job::class, 'job_listing_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Tag::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
