@@ -14,5 +14,10 @@
             </div>
         </a>
         @endforeach
+
+        <div>
+            {{-- Links for pagination, Laravel assumes you'll be using Tailwind so the styling is great out of the box --}}
+            {{$jobs->links()}}
+        </div>
     </div>
 </x-layout>
