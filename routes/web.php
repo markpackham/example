@@ -16,12 +16,22 @@ Route::get('/jobs', function ()  {
     // making performance get progressively worse
     // previously we used Job::all()
     
-    // Use pagination to save memory instead of get which fetches ALL
+    // Use pagination to save memory instead of get which fetches ALL, no limit
     //$jobs = Job::with('employer')->get();
-    // Example of pagination query - http://127.0.0.1:8000/jobs?page=2
-    $jobs = Job::with('employer')->paginate(3);
 
-    //
+    // Example of pagination query - http://127.0.0.1:8000/jobs?page=2
+    // For performance reasons simplePaginate works better than paginate
+    // but this offers only Previous & Next buttons
+    //$jobs = Job::with('employer')->simplePaginate(3);
+
+    // cursorPaginate means ugly links like this
+    // http://127.0.0.1:8000/jobs?cursor=eyJqb2JfbGlzdGluZ3MuaWQiOjMsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0
+    // but it is great if you can't stand people with web crawlers stealing your site data
+    // by incrementing up predictable url paths
+    // cursorPaginate works well for large data sets
+    // $jobs = Job::with('employer')->cursorPaginate(3);
+
+    $jobs = Job::with('employer')->paginate(3);
 
     return view('jobs', ['jobs' => $jobs]);
 });
