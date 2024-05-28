@@ -15,7 +15,13 @@ Route::get('/jobs', function ()  {
     // so the more records we added the more SQL queries would need to be run
     // making performance get progressively worse
     // previously we used Job::all()
-    $jobs = Job::with('employer')->get();
+    
+    // Use pagination to save memory instead of get which fetches ALL
+    //$jobs = Job::with('employer')->get();
+    // Example of pagination query - http://127.0.0.1:8000/jobs?page=2
+    $jobs = Job::with('employer')->paginate(3);
+
+    //
 
     return view('jobs', ['jobs' => $jobs]);
 });
