@@ -33,10 +33,19 @@ Route::get('/jobs', function ()  {
 
     $jobs = Job::with('employer')->paginate(3);
 
-    return view('jobs', ['jobs' => $jobs]);
+    // Before we made a "jobs" directory it was 
+    // return view('jobs', ['jobs' => $jobs]);
+
+    // You can use "." instead of "/" which is more common in Laravel for views directories
+    //return view('jobs/index', ['jobs' => $jobs]);
+    return view('jobs.index', ['jobs' => $jobs]);
 });
 
-Route::get('/jobs/{id}', function ($id) {
+Route::get('/jobs/create', function (){
+    return view('jobs.create');
+});
+
+Route::get('jobs/{id}', function ($id) {
     // die dump
     // dd($id);
 
@@ -44,7 +53,7 @@ Route::get('/jobs/{id}', function ($id) {
 // closures use a similar style to JavaScript's arrow function but need "fn" at the start
    $job = Job::find($id);
 
-    return view('job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
 });
 
 Route::get('/contact', function () {
