@@ -6,20 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-class Job extends Model {
-    use HasFactory;
+class Job extends Model
+{
+   use HasFactory;
 
- protected $table = 'job_listings';
+   protected $table = 'job_listings';
 
- protected $fillable = ['title', 'salary'];
+   protected $fillable = ['employer_id', 'title', 'salary'];
 
- public function employer(){
-    return $this->belongsTo(Employer::class);
- }
+   public function employer()
+   {
+      return $this->belongsTo(Employer::class);
+   }
 
- public function tags(){
-   // Make sure we don't end up using Laravel's default job_id intended fro the jobs table
-   // we want job_listings
-   return $this->belongsToMany(Tag::class, foreignPivotKey:"job_listing_id");
- }
+   public function tags()
+   {
+      // Make sure we don't end up using Laravel's default job_id intended fro the jobs table
+      // we want job_listings
+      return $this->belongsToMany(Tag::class, foreignPivotKey: "job_listing_id");
+   }
 }

@@ -31,7 +31,8 @@ Route::get('/jobs', function () {
     // cursorPaginate works well for large data sets
     // $jobs = Job::with('employer')->cursorPaginate(3);
 
-    $jobs = Job::with('employer')->paginate(3);
+    // latest() adds an Order By clause so we can reverse the results by Timestamp
+    $jobs = Job::with('employer')->latest()->paginate(3);
 
     // Before we made a "jobs" directory it was 
     // return view('jobs', ['jobs' => $jobs]);
