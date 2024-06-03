@@ -41,6 +41,7 @@ Route::get('/jobs', function ()  {
     return view('jobs.index', ['jobs' => $jobs]);
 });
 
+// http://127.0.0.1:8000/jobs/create
 Route::get('/jobs/create', function (){
     return view('jobs.create');
 });
