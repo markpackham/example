@@ -12,7 +12,12 @@ class Job extends Model
 
    protected $table = 'job_listings';
 
-   protected $fillable = ['employer_id', 'title', 'salary'];
+   // Whitelist
+   //protected $fillable = ['employer_id', 'title', 'salary'];
+
+   // Setting this to an empty array means you don't need to guard anything
+   // any sort of variables can be added to the database (a blacklist with zero)
+   protected $guarded = [];
 
    public function employer()
    {
