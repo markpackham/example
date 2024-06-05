@@ -86,6 +86,40 @@ Route::get('jobs/{id}/edit', function ($id) {
     return view('jobs.edit', ['job' => $job]);
 });
 
+// Update (using Patch instead of Put)
+// We don't need to have jobs/{id}/update since the
+// Patch behavior is implicit & understood by the framework
+// we'd have to use /update if we were using Post instead
+Route::patch('jobs/{id}', function ($id) {
+    // validate
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required'],
+    ]);
+
+    // Authorize
+
+    // Update job & Persist
+    $job = Job::find($id);
+
+    // Identical to doing $job->update([])
+    // $job->title = request('title');
+    // $job->salary = request('salary');
+    // $job->save();
+
+    $job->update([
+        'title' => request('title'),
+        'salary' => request('salary'),
+    ]);
+
+    // Redirect to jobs page
+});
+
+// Destroy
+Route::delete('jobs/{id}', function ($id) {
+
+});
+
 Route::get('/contact', function () {
     return view('contact');
 });
