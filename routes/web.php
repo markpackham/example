@@ -100,7 +100,9 @@ Route::patch('jobs/{id}', function ($id) {
     // Authorize
 
     // Update job & Persist
-    $job = Job::find($id);
+
+    // use findOrFail if there is a risk of nulls
+    $job = Job::findOrFail($id);
 
     // Identical to doing $job->update([])
     // $job->title = request('title');
@@ -112,7 +114,8 @@ Route::patch('jobs/{id}', function ($id) {
         'salary' => request('salary'),
     ]);
 
-    // Redirect to jobs page
+    // Redirect to job page
+    return redirect('/jobs/' . $job->id);
 });
 
 // Destroy
