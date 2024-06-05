@@ -3,12 +3,11 @@
       Edit Job: {{$job->title}}
     </x-slot:heading>
   
-    <form method="POST" action="/jobs">
-      {{-- Cross-Site Request Forgery (CSRF) token generation for Post requests otherwise we get an HTTP 419--}}
-      {{-- "HTTP response status code 419 Page Expired is an unofficial client error that is Laravel-specific 
-      and returned by the server to indicate that the Cross-Site Request Forgery (CSRF) validation has failed."
-      https://http.dev/419 --}}
+    <form method="POST" action="/jobs/{{$job->id}}">
       @csrf
+      {{-- How we signal to Laravel this is really a PATCH rather than a POST request --}}
+      {{-- so it will get routed as a PATCH and not a POST (browsers can only understand POST & GET) --}}
+      @method('PATCH')
   
       <div class="space-y-12">
         <div class="border-b border-gray-900/10 pb-12">
