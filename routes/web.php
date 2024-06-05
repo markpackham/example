@@ -50,7 +50,7 @@ Route::get('/jobs/create', function () {
 });
 
 // Show
-Route::get('jobs/{id}', function ($id) {
+Route::get('/jobs/{id}', function ($id) {
     // die dump
     // dd($id);
 
@@ -80,7 +80,7 @@ Route::post('/jobs', function () {
 });
 
 // Edit
-Route::get('jobs/{id}/edit', function ($id) {
+Route::get('/jobs/{id}/edit', function ($id) {
     $job = Job::find($id);
 
     return view('jobs.edit', ['job' => $job]);
@@ -90,7 +90,7 @@ Route::get('jobs/{id}/edit', function ($id) {
 // We don't need to have jobs/{id}/update since the
 // Patch behavior is implicit & understood by the framework
 // we'd have to use /update if we were using Post instead
-Route::patch('jobs/{id}', function ($id) {
+Route::patch('/jobs/{id}', function ($id) {
     // validate
     request()->validate([
         'title' => ['required', 'min:3'],
@@ -119,8 +119,17 @@ Route::patch('jobs/{id}', function ($id) {
 });
 
 // Destroy
-Route::delete('jobs/{id}', function ($id) {
+Route::delete('/jobs/{id}', function ($id) {
+    // Authorize
 
+    // Delete job
+    // $job = Job::findOrFail($id);
+    // $job->delete();
+
+    Job::findOrFail($id)->delete();
+
+    // Redirect
+    return redirect('/jobs');
 });
 
 Route::get('/contact', function () {
