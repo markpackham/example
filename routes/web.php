@@ -61,6 +61,7 @@ Route::get('jobs/{id}', function ($id) {
     return view('jobs.show', ['job' => $job]);
 });
 
+// Store
 Route::post('/jobs', function () {
     // dd(request()->all());
     // dd(request('title'));
@@ -76,6 +77,13 @@ Route::post('/jobs', function () {
         'employer_id' => 1
     ]);
     return redirect('/jobs');
+});
+
+// Edit
+Route::get('jobs/{id}/edit', function ($id) {
+    $job = Job::find($id);
+
+    return view('jobs.edit', ['job' => $job]);
 });
 
 Route::get('/contact', function () {
