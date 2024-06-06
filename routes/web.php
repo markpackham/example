@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Models\Job;
 use Illuminate\Support\Facades\Route;
 
@@ -9,39 +10,41 @@ Route::get('/', function () {
 });
 
 // Index
-Route::get('/jobs', function () {
-    // Use eager loading rather than lazy loading for better performance
-    // use "with" with employer() method in Job class
-    // had we used lazy loading then we'd have the N+1 problem
-    // so the more records we added the more SQL queries would need to be run
-    // making performance get progressively worse
-    // previously we used Job::all()
+Route::get('/jobs', [JobController::class, 'index']);
 
-    // Use pagination to save memory instead of get which fetches ALL, no limit
-    //$jobs = Job::with('employer')->get();
+// Route::get('/jobs', function () {
+//     // Use eager loading rather than lazy loading for better performance
+//     // use "with" with employer() method in Job class
+//     // had we used lazy loading then we'd have the N+1 problem
+//     // so the more records we added the more SQL queries would need to be run
+//     // making performance get progressively worse
+//     // previously we used Job::all()
 
-    // Example of pagination query - http://127.0.0.1:8000/jobs?page=2
-    // For performance reasons simplePaginate works better than paginate
-    // but this offers only Previous & Next buttons
-    //$jobs = Job::with('employer')->simplePaginate(3);
+//     // Use pagination to save memory instead of get which fetches ALL, no limit
+//     //$jobs = Job::with('employer')->get();
 
-    // cursorPaginate means ugly links like this
-    // http://127.0.0.1:8000/jobs?cursor=eyJqb2JfbGlzdGluZ3MuaWQiOjMsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0
-    // but it is great if you can't stand people with web crawlers stealing your site data
-    // by incrementing up predictable url paths
-    // cursorPaginate works well for large data sets
-    // $jobs = Job::with('employer')->cursorPaginate(3);
+//     // Example of pagination query - http://127.0.0.1:8000/jobs?page=2
+//     // For performance reasons simplePaginate works better than paginate
+//     // but this offers only Previous & Next buttons
+//     //$jobs = Job::with('employer')->simplePaginate(3);
 
-    // latest() adds an Order By clause so we can reverse the results by Timestamp
-    $jobs = Job::with('employer')->latest()->paginate(3);
+//     // cursorPaginate means ugly links like this
+//     // http://127.0.0.1:8000/jobs?cursor=eyJqb2JfbGlzdGluZ3MuaWQiOjMsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0
+//     // but it is great if you can't stand people with web crawlers stealing your site data
+//     // by incrementing up predictable url paths
+//     // cursorPaginate works well for large data sets
+//     // $jobs = Job::with('employer')->cursorPaginate(3);
 
-    // Before we made a "jobs" directory it was 
-    // return view('jobs', ['jobs' => $jobs]);
+//     // latest() adds an Order By clause so we can reverse the results by Timestamp
+//     $jobs = Job::with('employer')->latest()->paginate(3);
 
-    // You can use "." instead of "/" which is more common in Laravel for views directories
-    //return view('jobs/index', ['jobs' => $jobs]);
-    return view('jobs.index', ['jobs' => $jobs]);
-});
+//     // Before we made a "jobs" directory it was 
+//     // return view('jobs', ['jobs' => $jobs]);
+
+//     // You can use "." instead of "/" which is more common in Laravel for views directories
+//     //return view('jobs/index', ['jobs' => $jobs]);
+//     return view('jobs.index', ['jobs' => $jobs]);
+// });
 
 // Create
 // http://127.0.0.1:8000/jobs/create
