@@ -4,9 +4,11 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::view('/', 'home');
 
 // Index
 Route::get('/jobs', [JobController::class, 'index']);
@@ -84,6 +86,4 @@ Route::patch('/jobs/{job}', [JobController::class, 'update']);
 // Destroy
 Route::delete('/jobs/{job}', [JobController::class, 'destroy']);
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::view('/contact', 'contact');
