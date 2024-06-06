@@ -48,9 +48,10 @@ Route::get('/jobs', [JobController::class, 'index']);
 
 // Create
 // http://127.0.0.1:8000/jobs/create
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
+// Route::get('/jobs/create', function () {
+//     return view('jobs.create');
+// });
+Route::get('/jobs/create', [JobController::class, 'create']);
 
 // Show
 // Route::get('/jobs/{id}', function ($id) {
@@ -64,9 +65,12 @@ Route::get('/jobs/create', function () {
 
 // Alternate solution to the above using a Model type in the parameter
 // this is the faster solution called Route Model Binding
-Route::get('/jobs/{job}', function (Job $job) {
-    return view('jobs.show', ['job' => $job]);
-});
+// Route::get('/jobs/{job}', function (Job $job) {
+//     return view('jobs.show', ['job' => $job]);
+// });
+
+Route::get('/jobs/{job}', [JobController::class, 'show']);
+
 
 // Store
 Route::post('/jobs', function () {
