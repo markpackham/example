@@ -50,14 +50,18 @@ Route::get('/jobs/create', function () {
 });
 
 // Show
-Route::get('/jobs/{id}', function ($id) {
-    // die dump
-    // dd($id);
+// Route::get('/jobs/{id}', function ($id) {
+// die dump
+// dd($id);
 
-    // Use short closure to access $id from above
-    // closures use a similar style to JavaScript's arrow function but need "fn" at the start
-    $job = Job::find($id);
+// Use short closure to access $id from above
+// closures use a similar style to JavaScript's arrow function but need "fn" at the start
+// $job = Job::find($id);
+// return view('jobs.show', ['job' => $job]);
 
+// Alternate solution to the above using a Model type in the parameter
+// this is the faster solution called Route Model Binding
+Route::get('/jobs/{job}', function (Job $job) {
     return view('jobs.show', ['job' => $job]);
 });
 
@@ -80,8 +84,7 @@ Route::post('/jobs', function () {
 });
 
 // Edit
-Route::get('/jobs/{id}/edit', function ($id) {
-    $job = Job::find($id);
+Route::get('/jobs/{job}/edit', function (Job $job) {
 
     return view('jobs.edit', ['job' => $job]);
 });
@@ -90,19 +93,20 @@ Route::get('/jobs/{id}/edit', function ($id) {
 // We don't need to have jobs/{id}/update since the
 // Patch behavior is implicit & understood by the framework
 // we'd have to use /update if we were using Post instead
-Route::patch('/jobs/{id}', function ($id) {
-    // validate
+Route::patch('/jobs/{job}', function (Job $job) {
+    // Authorize
+
+    // Validate
     request()->validate([
         'title' => ['required', 'min:3'],
         'salary' => ['required'],
     ]);
 
-    // Authorize
 
     // Update job & Persist
 
     // use findOrFail if there is a risk of nulls
-    $job = Job::findOrFail($id);
+    // $job = Job::findOrFail($id);
 
     // Identical to doing $job->update([])
     // $job->title = request('title');
@@ -119,14 +123,14 @@ Route::patch('/jobs/{id}', function ($id) {
 });
 
 // Destroy
-Route::delete('/jobs/{id}', function ($id) {
+Route::delete('/jobs/{job}', function (Job $job) {
     // Authorize
 
     // Delete job
     // $job = Job::findOrFail($id);
-    // $job->delete();
+    $job->delete();
 
-    Job::findOrFail($id)->delete();
+    // Job::findOrFail($id)->delete();
 
     // Redirect
     return redirect('/jobs');
