@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 // To see all routes
@@ -37,3 +38,7 @@ Route::resource('jobs', JobController::class);
 // ]);
 
 Route::view('/contact', 'contact');
+
+// Auth
+Route::get('/register', [RegisteredUserController::class, 'create']);
+
