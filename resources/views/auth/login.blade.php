@@ -3,6 +3,8 @@
       Log In
     </x-slot:heading>
   
+    <p class="mb-2">Demo user for login & password - z@email.com</p>
+
     <form method="POST" action="/login">
       @csrf
   
