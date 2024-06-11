@@ -15,7 +15,9 @@
             <x-form-field>
                 <x-form-label for="title">Email</x-form-label>
                 <div class="mt-2">
-                  <x-form-input name="email" id="email" type="email" required></x-form-input>
+                  {{-- The "old" attribute function provided by Laravel does what's expected but you must have
+                  ":" on value so :value otherwise you just end up with a string literally called "old('email')" --}}
+                  <x-form-input name="email" id="email" type="email" :value="old('email')" required></x-form-input>
                   <x-form-error name="email" />
                 </div>
               </x-form-field>
