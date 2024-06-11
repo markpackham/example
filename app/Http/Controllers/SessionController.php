@@ -28,7 +28,8 @@ class SessionController extends Controller
         }
 
 
-        // Regenerate the session token
+        // Regenerate the session token, prevents session hijacking
+        // token is always regenerated when user signs in so old tokens won't work
         request()->session()->regenerate();
 
         return redirect('/jobs');
