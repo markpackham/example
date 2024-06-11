@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
@@ -18,6 +19,9 @@ class SessionController extends Controller
 
     public function destroy()
     {
-        dd(request()->all());
+        // You don't need to provide a $user
+        // it assumes it is the current user
+        Auth::logout();
+        return redirect("/");
     }
 }
