@@ -46,6 +46,14 @@ class JobController extends Controller
         if (Auth::guest()) {
             return redirect('login');
         }
+
+        // Only let the user who created the job, edit it
+        // use "isNot" check to prevent authorized from editing
+        if ($job->employer->user->isNot(Auth::user())) {
+            // Give Http 403 Forbidden status code
+            abort(403);
+        }
+
         return view('jobs.edit', ['job' => $job]);
     }
 
