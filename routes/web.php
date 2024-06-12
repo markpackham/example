@@ -19,9 +19,11 @@ Route::controller(JobController::class)->group(function () {
     Route::get('/jobs/create', 'create');
     Route::get('/jobs/{job}', 'show');
     Route::post('/jobs', 'store')->middleware('auth');
-    Route::get('/jobs/{job}/edit', 'edit')->middleware(['auth', 'can:edit-job,job']);
-    Route::patch('/jobs/{job}', 'update');
-    Route::delete('/jobs/{job}', 'destroy');
+    // Use Middleware so only job creator can edit/update/destroy job they made
+    // Route::get('/jobs/{job}/edit', 'edit')->middleware(['auth', 'can:edit-job,job']);
+    Route::get('/jobs/{job}/edit', 'edit')->middleware('auth')->can('edit-job', 'job');
+    Route::patch('/jobs/{job}', 'update')->middleware('auth')->can('edit-job', 'job');
+    Route::delete('/jobs/{job}', 'destroy')->middleware('auth')->can('edit-job', 'job');
 });
 
 // Route resource does the same for jobs as above
