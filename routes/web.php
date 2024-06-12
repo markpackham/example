@@ -26,7 +26,7 @@ Route::view('/', 'home');
 
 // Route resource does the same for jobs as above
 // all action names follow defaults eg "show", "destroy", "index"
-Route::resource('jobs', JobController::class);
+Route::resource('jobs', JobController::class)->middleware('auth');
 
 
 // We can whitelist via 'only' and blacklist via 'except'
@@ -44,6 +44,7 @@ Route::view('/contact', 'contact');
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('/login', [SessionController::class, 'create']);
+// Make login a named route
+Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
