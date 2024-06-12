@@ -50,11 +50,6 @@ class JobController extends Controller
             return redirect('login');
         }
 
-        // Laravel Gate Facade - a conditional barrier
-        Gate::define('edit-job', function (User $user, Job $job) {
-            return $job->employer->user->is($user);
-        });
-
         // // Only let the user who created the job, edit it
         // // use "isNot" check to prevent authorized from editing
         // if ($job->employer->user->isNot(Auth::user())) {
@@ -62,7 +57,7 @@ class JobController extends Controller
         //     abort(403);
         // }
 
-        // Only runs if Gate above valid otherwise returns a 403
+        // Only runs Gate made via Laravel Facade valid otherwise returns a 403
         Gate::authorize('edit-job', $job);
 
         return view('jobs.edit', ['job' => $job]);

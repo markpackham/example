@@ -6,6 +6,10 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Support\Facades\Gate;
+use App\Models\Job;
+use App\Models\User;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -17,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap any application services. So methods available to use anywhere.
      */
     public function boot(): void
     {
@@ -28,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Change style used for Pagination - eg Bootstrap or the default Tailwind
         // Paginator::useBootstrapFive();
+
+        // Laravel Gate Facade - a conditional barrier
+        Gate::define('edit-job', function (User $user, Job $job) {
+            return $job->employer->user->is($user);
+        });
     }
 }
