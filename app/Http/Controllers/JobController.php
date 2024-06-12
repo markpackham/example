@@ -60,7 +60,9 @@ class JobController extends Controller
         // Only runs Gate made via Laravel Facade valid otherwise returns a 403
         // This Gate is found in the AppServiceProvider boot() so is available
         // everywhere we want to use it
-        Gate::authorize('edit-job', $job);
+        // However we can just use middleware in the routes for authorization checks
+        // thus skip out of doing them in the controller
+        // Gate::authorize('edit-job', $job);
 
         return view('jobs.edit', ['job' => $job]);
     }
