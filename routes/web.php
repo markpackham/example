@@ -21,7 +21,12 @@ Route::controller(JobController::class)->group(function () {
     Route::post('/jobs', 'store')->middleware('auth');
     // Use Middleware so only job creator can edit/update/destroy job they made
     // Route::get('/jobs/{job}/edit', 'edit')->middleware(['auth', 'can:edit-job,job']);
-    Route::get('/jobs/{job}/edit', 'edit')->middleware('auth')->can('edit-job', 'job');
+
+    // Use Policy from JobPolicy instead of Gate from AppServiceProvider, so instead of "edit-job" we use "edit"
+    // Route::get('/jobs/{job}/edit', 'edit')->middleware('auth')->can('edit-job', 'job');
+    Route::get('/jobs/{job}/edit', 'edit')->middleware('auth')->can('edit', 'job');
+
+
     Route::patch('/jobs/{job}', 'update')->middleware('auth')->can('edit-job', 'job');
     Route::delete('/jobs/{job}', 'destroy')->middleware('auth')->can('edit-job', 'job');
 });

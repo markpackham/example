@@ -34,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
         // Paginator::useBootstrapFive();
 
         // Laravel Gate Facade - a conditional barrier
-        Gate::define('edit-job', function (User $user, Job $job) {
-            return $job->employer->user->is($user);
-        });
+        // Gate::define('edit-job', function (User $user, Job $job) {
+        //     return $job->employer->user->is($user);
+        // });
     }
 }
