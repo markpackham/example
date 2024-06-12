@@ -10,7 +10,11 @@
     {{-- Currently accessing via properties is the most trendy way to do things --}}
     <p>This job pays {{$job->salary}} per year.</p>
 
+    {{-- Only the job creator can edit the job --}}
+    @can('edit-job', $job)
     <p class="mt-6">
         <x-button href="/jobs/{{$job->id}}/edit">Edit Job</x-button>
     </p>
+    @endcan
+
 </x-layout>
