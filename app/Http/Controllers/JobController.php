@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -43,16 +45,25 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
+
         if (Auth::guest()) {
             return redirect('login');
         }
 
-        // Only let the user who created the job, edit it
-        // use "isNot" check to prevent authorized from editing
-        if ($job->employer->user->isNot(Auth::user())) {
-            // Give Http 403 Forbidden status code
-            abort(403);
-        }
+        // Laravel Gate Facade - a conditional barrier
+        Gate::define('edit-job', function (User $user, Job $job) {
+            return $job->employer->user->is($user);
+        });
+
+        // // Only let the user who created the job, edit it
+        // // use "isNot" check to prevent authorized from editing
+        // if ($job->employer->user->isNot(Auth::user())) {
+        //     // Give Http 403 Forbidden status code
+        //     abort(403);
+        // }
+
+        // Only runs if Gate above valid otherwise returns a 403
+        Gate::authorize('edit-job', $job);
 
         return view('jobs.edit', ['job' => $job]);
     }
