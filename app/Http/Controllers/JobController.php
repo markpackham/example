@@ -46,9 +46,9 @@ class JobController extends Controller
     public function edit(Job $job)
     {
 
-        if (Auth::guest()) {
-            return redirect('login');
-        }
+        // if (Auth::guest()) {
+        //     return redirect('login');
+        // }
 
         // // Only let the user who created the job, edit it
         // // use "isNot" check to prevent authorized from editing
@@ -58,6 +58,8 @@ class JobController extends Controller
         // }
 
         // Only runs Gate made via Laravel Facade valid otherwise returns a 403
+        // This Gate is found in the AppServiceProvider boot() so is available
+        // everywhere we want to use it
         Gate::authorize('edit-job', $job);
 
         return view('jobs.edit', ['job' => $job]);
