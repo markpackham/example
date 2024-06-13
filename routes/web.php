@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\Route;
 // php artisan route:list --except-vendor
 
 Route::get('test', function () {
-    return new \App\Mail\JobPosted();
+    //return new \App\Mail\JobPosted();
+    \Illuminate\Support\Facades\Mail::to('jeffrey@laracasts.com')->send(
+        new \App\Mail\JobPosted()
+    );
+
+    return 'Done';
 });
 
 // Route::get('/', function () {
