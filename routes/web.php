@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Route;
 // To see all routes
 // php artisan route:list --except-vendor
 
+Route::get('test', function () {
+    return new \App\Mail\JobPosted();
+});
+
 // Route::get('/', function () {
 //     return view('home');
 // });
