@@ -48,6 +48,7 @@ class JobController extends Controller
         // you can use a "queue" but to do so a queue needs workers to work on that queue
         // "php artisan queue:work" must run behind the scenes
         // On production sites you can use a tool called supervisor to make sure your queue:work never falls over
+        // ALWAYS restart the worker in the queue when making code changes or the old stuff from memory will show
         Mail::to($job->employer->user)->queue(
             new JobPosted($job)
         );
