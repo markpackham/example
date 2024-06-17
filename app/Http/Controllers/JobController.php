@@ -44,7 +44,11 @@ class JobController extends Controller
         ]);
 
         // Laravel is smart enough to grab the user's email off the object
-        Mail::to($job->employer->user)->send(
+        // You could use "send" but if it's a task that sucks up time like sending emails
+        // you can use a "queue" but to do so a queue needs workers to work on that queue
+        // "php artisan queue:work" must run behind the scenes
+        // On production sites you can use a tool called supervisor to make sure your queue:work never falls over
+        Mail::to($job->employer->user)->queue(
             new JobPosted($job)
         );
 
