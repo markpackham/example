@@ -11,7 +11,7 @@
     {{-- Our own custom CSS, use on a browser that doesn't have script blockers --}}
     {{-- Our own custom JS --}}
    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-   {{-- Load CSS via app.js --}}
+   {{-- Load CSS via app.js rather than directly via Vite, this is a better approach for a single page application / SPA --}}
    @vite(['resources/js/app.js'])
 </head>
 <body class="h-full">
