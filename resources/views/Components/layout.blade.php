@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {{-- Our own custom CSS, use on a browser that doesn't have script blockers --}}
+    @vite(['resources/css/app.css'])
 </head>
 <body class="h-full">
 <!--
