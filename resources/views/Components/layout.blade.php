@@ -6,7 +6,8 @@
     <title>My Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- Our own custom CSS, use on a browser that doesn't have script blockers --}}
-    @vite(['resources/css/app.css'])
+    {{-- Our own custom JS --}}
+   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full">
 <!--
