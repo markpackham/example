@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
+Route::get('text', function () {
+
+    dispatch(function () {
+        logger('hello from the queue!');
+    });
+
+    return 'Done';
+});
+
 Route::view('/', 'home');
 
 Route::controller(JobController::class)->group(function () {
