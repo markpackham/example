@@ -1,4 +1,8 @@
-/* Our own custom CSS, use on a browser that doesn't have script blockers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Our own custom CSS, use on a browser that doesn't have script blockers
 body {
     background-color: orange;
-}
+} */

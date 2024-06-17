@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- We have installed tailwind natively so this script is no longer needed --}}
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+
     {{-- Our own custom CSS, use on a browser that doesn't have script blockers --}}
     {{-- Our own custom JS --}}
    @vite(['resources/css/app.css', 'resources/js/app.js'])

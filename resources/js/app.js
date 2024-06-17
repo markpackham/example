@@ -1,3 +1,3 @@
 import "./bootstrap";
 
-alert("Hello from resources/js/app.js!");
+// alert("Hello from resources/js/app.js!");
