@@ -10,7 +10,9 @@
 
     {{-- Our own custom CSS, use on a browser that doesn't have script blockers --}}
     {{-- Our own custom JS --}}
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+   {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+   {{-- Load CSS via app.js --}}
+   @vite(['resources/js/app.js'])
 </head>
 <body class="h-full">
 <!--
